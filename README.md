@@ -1,3 +1,3 @@
-# Complianz Google Tag Manager Community Template
+# Complianz - GTM Community Template
 
 
