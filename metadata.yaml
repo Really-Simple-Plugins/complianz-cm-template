@@ -15,5 +15,5 @@
 homepage: "https://complianz.io"
 documentation: "https://complianz.io/consent-mode/"
 versions:
-  - sha: 5f02a788b90ae804f86b04aa24af8937e567874a
+  - sha: acf346822efa6d063f027de193cae0ae0b188dae
     changeNotes: Initial Version
