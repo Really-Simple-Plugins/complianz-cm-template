@@ -13,7 +13,7 @@
 # limitations under the License.
 
 homepage: "https://complianz.io"
-documentation: "https://complianz.io/consent-mode/"
+documentation: "https://complianz.io/consent-mode-for-7-0/"
 versions:
   - sha: 27386931571b0d0688b287f13199eed5ca6e94e9
     changeNotes: Initial Version
