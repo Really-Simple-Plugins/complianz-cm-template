@@ -31,65 +31,93 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "PARAM_TABLE",
-    "name": "defaultSettings",
-    "displayName": "Default settings",
-    "paramTableColumns": [
+    "type": "GROUP",
+    "name": "defaultSettings2",
+    "displayName": "Default Consent State",
+    "groupStyle": "ZIPPY_OPEN",
+    "subParams": [
       {
-        "param": {
-          "type": "TEXT",
-          "name": "region",
-          "displayName": "Region",
-          "simpleValueType": true,
-          "help": "Leave empty for the default set-up. Complianz handles regions automatically based on your wizard configuration."
-        },
-        "isUnique": false
+        "type": "TEXT",
+        "name": "region",
+        "displayName": "Region",
+        "simpleValueType": true,
+        "help": "Leave empty for the default set-up. Complianz handles regions automatically based on your wizard configuration. Check our documentation to change, if needed.",
+        "valueHint": "Automated by Complianz",
+        "defaultValue": ""
       },
       {
-        "param": {
-          "type": "TEXT",
-          "name": "granted",
-          "displayName": "Granted",
-          "simpleValueType": true,
-          "defaultValue": "functionality_storage, security_storage",
-          "help": "Select which categories are granted by default. For best results, make sure Complianz\u0027 configuration aligns with your choices.",
-          "valueHint": "functionality_storage, security_storage, personalization_storage, analytics_storage, ad_storage"
-        },
-        "isUnique": false
+        "type": "SELECT",
+        "name": "defaultConsentPreferences",
+        "displayName": "Preferences (personalization_storage)",
+        "macrosInSelect": false,
+        "selectItems": [
+          {
+            "value": "denied",
+            "displayValue": "Denied (Default)"
+          },
+          {
+            "value": "granted",
+            "displayValue": "Granted"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "Select default consent state for preference cookies",
+        "defaultValue": "denied"
       },
       {
-        "param": {
-          "type": "TEXT",
-          "name": "denied",
-          "displayName": "Denied",
-          "simpleValueType": true,
-          "defaultValue": "personalization_storage, analytics_storage, ad_storage",
-          "valueHint": "functionality_storage, security_storage, personalization_storage, analytics_storage, ad_storage",
-          "help": "Select which categories are denied by default. For best results, make sure Complianz\u0027 configuration aligns with your choices."
-        },
-        "isUnique": false
+        "type": "SELECT",
+        "name": "defaultConsentStatistics",
+        "displayName": "Analytics (analytics_storage)",
+        "macrosInSelect": false,
+        "selectItems": [
+          {
+            "value": "denied",
+            "displayValue": "Denied (Default)"
+          },
+          {
+            "value": "granted",
+            "displayValue": "Granted"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "Select default consent state for analytics tracking",
+        "defaultValue": "denied"
       },
       {
-        "param": {
-          "type": "CHECKBOX",
-          "name": "ads_data_redaction",
-          "checkboxText": "Redact Ads Data",
-          "simpleValueType": true,
-          "help": "When ad data redaction is true and marketing cookies are denied, ad click identifiers sent in network requests by Google Ads and Floodlight tags will be redacted. Network requests will also be sent through a cookieless domain"
-        },
-        "isUnique": false
+        "type": "SELECT",
+        "name": "defaultConsentMarketing",
+        "displayName": "Advertising (ad_storage)",
+        "macrosInSelect": false,
+        "selectItems": [
+          {
+            "value": "denied",
+            "displayValue": "Denied (Default)"
+          },
+          {
+            "value": "granted",
+            "displayValue": "Granted"
+          }
+        ],
+        "simpleValueType": true,
+        "help": "Select default consent state for marketing and advertising",
+        "defaultValue": "denied"
       },
       {
-        "param": {
-          "type": "CHECKBOX",
-          "name": "urlPassthrough",
-          "checkboxText": "Enable URL passthrough",
-          "simpleValueType": true,
-          "help": ""
-        },
-        "isUnique": false
+        "type": "CHECKBOX",
+        "name": "ads_data_redaction",
+        "checkboxText": "Redact Ads Data",
+        "simpleValueType": true,
+        "help": "When ad data redaction is true and marketing cookies are denied, ad click identifiers sent in network requests by Google Ads and Floodlight tags will be redacted. Network requests will also be sent through a cookieless domain"
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "urlPassthrough",
+        "checkboxText": "Enable URL passthrough",
+        "simpleValueType": true,
+        "help": ""
       }
-    ]
+    ],
+    "help": "A default consent state of \u0027denied\u0027 will apply until the user has submitted a consent."
   }
 ]
 
@@ -104,24 +132,42 @@ const getCookieValues = require('getCookieValues');//permission to reach specifi
 const callInWindow = require('callInWindow');//permission for each used function is set
 const gtagSet = require('gtagSet'); //permission for each used key is set
 const COOKIE_NAME = 'cmplz_consent_mode'; //permission for this name is set
-const categories = ['ad_storage', 'analytics_storage', 'functionality_storage', 'personalization_storage', 'security_storage'];
-log("loaded version 27 data=",data);
+const marketingCategories = ['ad_storage'];
+const statisticsCategories = ['analytics_storage'];
+const defaultCategories = [ 'functionality_storage','security_storage'];
+const preferencesCategories = [ 'personalization_storage' ];
+const allCategories = ['ad_storage','analytics_storage','functionality_storage','security_storage','personalization_storage'];
+log("loaded version 31 data=",data);
 /**
  * Splits the input string using comma as a delimiter, returning an array of
  * strings
  */
 const splitInput = (input) => {
+  log('split input ', input);
 	return input.split(',')
 		.map(entry => entry.trim())
 		.filter(entry => entry.length !== 0);
 };
 
+const defaultGrantedCategories = () => {
+    let defaultSettings = data;
+
+        let granted = defaultCategories;
+        if (defaultSettings.defaultConsentMarketing === 'granted' ){
+          granted = granted.concat(marketingCategories);
+        }
+        if (defaultSettings.defaultConsentStatistics === 'granted' ){
+          granted = granted.concat(statisticsCategories);
+        }
+        if (defaultSettings.defaultConsentPreferences === 'granted' ){
+          granted = granted.concat(preferencesCategories);
+        }
+  return granted;
+};
+
 const onUserRevoke = () => {
-  		let defaultSettings = data.defaultSettings[0];
-		const granted = splitInput(defaultSettings.granted);
+    let granted = defaultGrantedCategories();
     log('onuser revoke',getConsentState(granted));
-
-
 	onUserConsent(getConsentState(granted));
 };
 
@@ -131,7 +177,7 @@ const onUserConsent = (consent) => {
 };
 
 const getConsentState = (granted) => {
-  let denied = categories;
+  let denied = allCategories;
   let consentState = {};
   granted.forEach(entry => {
 	denied = denied.filter(item => item !== entry);
@@ -153,27 +199,30 @@ const main = (data) => {
 		'developer_id.dYWVlZG', true
 	);
   log('added dev id');
-
+	
   gtagSet('ads_data_redaction', data.ads_data_redaction);
   gtagSet('url_passthrough', data.url_passthrough);
-  log('added data redaction');
-
-    const settings = getCookieValues(COOKIE_NAME);
-  	let defaultSettings = data.defaultSettings[0];
-	const defaultGranted = splitInput(defaultSettings.granted);
-	if (typeof settings !== 'undefined' && settings.length > 0) {
-		let granted = settings[0]==='revoked' ? defaultGranted : splitInput(settings[0]);
-        log('granted',granted);
+  log('added data redaction', data.ads_data_redaction);
+  
+   const settings = getCookieValues(COOKIE_NAME);
+    
+  log('new data', data);
+  log('cookie settings', settings);
+	if (settings && settings.length>0) {
+      log("found settings");
+      let granted = splitInput(settings[0]);
+      log('load stored state, granted', granted);
       log('update state', getConsentState(granted));
 		onUserConsent(getConsentState(granted));
-	} else {
-      log('set default state');
-		//set default state
-        let defaultConsent = getConsentState(defaultGranted);
+    } else {
+      	//set default state
+        let granted = defaultGrantedCategories();
+       log('set default state, granted', granted);
+        let defaultConsent = getConsentState(granted);
         log('defaultconsent',defaultConsent);
 		//defaultConsent.wait_for_update = 500;
 		setDefaultConsentState(defaultConsent);
-	}
+    }
 
 	callInWindow('addConsentUpdateListener', onUserConsent);
 	callInWindow('addRevokeListener', onUserRevoke);
@@ -560,4 +609,4 @@ scenarios: []
 
 ___NOTES___
 
-Created on 12/07/2023, 17:16:10
+Created on 10/10/2023, 20:04:08
