@@ -14,7 +14,7 @@ There are 3 prerequisites to be able to use this template.
 - You're using Tag Manager to trigger tags
 - You have configured your Tags for Consent Mode
 
-How to configure this specifically with Complianz, you can check [complianz.io/consent-mode](https://complianz.io/consent-mode/).
+How to configure this specifically with Complianz, you can check [complianz.io/consent-mode](https://complianz.io/consent-mode-for-7-0/).
 
 ## I have questions
 
