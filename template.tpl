@@ -12,7 +12,11 @@ ___INFO___
   "type": "TAG",
   "id": "cvt_temp_public_id",
   "version": 1,
-  "categories": ["TAG_MANAGEMENT", "ADVERTISING", "UTILITY"],
+  "categories": [
+    "TAG_MANAGEMENT",
+    "ADVERTISING",
+    "UTILITY"
+  ],
   "securityGroups": [],
   "displayName": "Complianz.io - The Privacy Suite for WordPress",
   "brand": {
@@ -137,7 +141,7 @@ const statisticsCategories = ['analytics_storage'];
 const defaultCategories = [ 'functionality_storage','security_storage'];
 const preferencesCategories = [ 'personalization_storage' ];
 const allCategories = ['ad_storage','analytics_storage','functionality_storage','security_storage','personalization_storage'];
-log("loaded version 31 data=",data);
+// log("loaded version 31 data=",data);
 /**
  * Splits the input string using comma as a delimiter, returning an array of
  * strings
