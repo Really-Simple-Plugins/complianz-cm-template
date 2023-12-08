@@ -5,7 +5,6 @@ Template Gallery Developer Terms of Service available at
 https://developers.google.com/tag-manager/gallery-tos (or such other URL as
 Google may provide), as modified from time to time.
 
-
 ___INFO___
 
 {
@@ -90,7 +89,7 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "SELECT",
         "name": "defaultConsentMarketing",
-        "displayName": "Advertising (ad_storage)",
+        "displayName": "Advertising (ad_storage, ad_user_data, ad_personalization)",
         "macrosInSelect": false,
         "selectItems": [
           {
@@ -136,12 +135,12 @@ const getCookieValues = require('getCookieValues');//permission to reach specifi
 const callInWindow = require('callInWindow');//permission for each used function is set
 const gtagSet = require('gtagSet'); //permission for each used key is set
 const COOKIE_NAME = 'cmplz_consent_mode'; //permission for this name is set
-const marketingCategories = ['ad_storage'];
+const marketingCategories = ['ad_storage', 'ad_user_data', 'ad_personalization'];
 const statisticsCategories = ['analytics_storage'];
 const defaultCategories = [ 'functionality_storage','security_storage'];
 const preferencesCategories = [ 'personalization_storage' ];
-const allCategories = ['ad_storage','analytics_storage','functionality_storage','security_storage','personalization_storage'];
-// log("loaded version 31 data=",data);
+const allCategories = ['ad_storage','analytics_storage','functionality_storage','security_storage','personalization_storage', 'ad_user_data', 'ad_personalization'];
+ log("CMV2",data);
 /**
  * Splits the input string using comma as a delimiter, returning an array of
  * strings
@@ -571,6 +570,68 @@ ___WEB_PERMISSIONS___
                     "boolean": true
                   }
                 ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_user_data"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              },
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "consentType"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  },
+                  {
+                    "type": 1,
+                    "string": "write"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "ad_personalization"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": false
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
               }
             ]
           }
@@ -613,4 +674,4 @@ scenarios: []
 
 ___NOTES___
 
-Created on 12/10/2023, 16:17:33
+Created on 12/10/2023, 16:17:32
