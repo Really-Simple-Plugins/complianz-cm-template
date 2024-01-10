@@ -16,6 +16,9 @@ homepage: "https://complianz.io"
 documentation: "https://complianz.io/consent-mode-for-7-0/"
 versions: 
 # Latest version
+  - sha: 7a706ccb2c9684feb2519d0a5421ddef601a0400
+    changeNotes: Delay for Default Consent State
+# Previous version
   - sha: df4234a8488b4fac114cbd063455f29700cfce74
     changeNotes: Consent Mode V2
 # Initial version
