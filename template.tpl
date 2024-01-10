@@ -140,13 +140,13 @@ const statisticsCategories = ['analytics_storage'];
 const defaultCategories = [ 'functionality_storage','security_storage'];
 const preferencesCategories = [ 'personalization_storage' ];
 const allCategories = ['ad_storage','analytics_storage','functionality_storage','security_storage','personalization_storage', 'ad_user_data', 'ad_personalization'];
- log("CMV2",data);
+ log("ConsentModeV2",data);
 /**
  * Splits the input string using comma as a delimiter, returning an array of
  * strings
  */
 const splitInput = (input) => {
-//  log('split input ', input);
+    //  log('split input ', input);
 	return input.split(',')
 		.map(entry => entry.trim())
 		.filter(entry => entry.length !== 0);
@@ -170,12 +170,12 @@ const defaultGrantedCategories = () => {
 
 const onUserRevoke = () => {
     let granted = defaultGrantedCategories();
-//    log('onuser revoke',getConsentState(granted));
+    //  log('onuser revoke',getConsentState(granted));
 	onUserConsent(getConsentState(granted));
 };
 
 const onUserConsent = (consent) => {
-//  log('onuser consent',consent);
+    //  log('onuser consent',consent);
 	updateConsentState(consent);
 };
 
@@ -197,33 +197,33 @@ const getConsentState = (granted) => {
  * update callback
  */
 const main = (data) => {
-//  log('loaded main');
+  // log('loaded main');
 	gtagSet(
 		'developer_id.dYWVlZG', true
 	);
-// log('added dev id');
+  // log('added dev id');
 	
   gtagSet('ads_data_redaction', data.ads_data_redaction);
   gtagSet('url_passthrough', data.url_passthrough);
-//  log('added data redaction', data.ads_data_redaction);
+  // log('added data redaction', data.ads_data_redaction);
   
    const settings = getCookieValues(COOKIE_NAME);
     
-//  log('new data', data);
-//  log('cookie settings', settings);
+  // log('new data', data);
+  // log('cookie settings', settings);
 	if (settings && settings.length>0) {
-      log("found settings");
+      // log("found settings");
       let granted = splitInput(settings[0]);
-//      log('load stored state, granted', granted);
-//      log('update state', getConsentState(granted));
+  // log('load stored state, granted', granted);
+  // log('update state', getConsentState(granted));
 		onUserConsent(getConsentState(granted));
     } else {
-      	//set default state
+  // set default state
         let granted = defaultGrantedCategories();
-//       log('set default state, granted', granted);
+  // log('set default state, granted', granted);
         let defaultConsent = getConsentState(granted);
-//        log('defaultconsent',defaultConsent);
-		//defaultConsent.wait_for_update = 500;
+  // log('defaultconsent',defaultConsent);
+		defaultConsent.wait_for_update = 500;
 		setDefaultConsentState(defaultConsent);
     }
 
@@ -674,4 +674,4 @@ scenarios: []
 
 ___NOTES___
 
-Created on 12/10/2023, 16:17:32
+Created on 12/10/2023, 16:17:33
