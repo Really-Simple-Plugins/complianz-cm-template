@@ -15,12 +15,18 @@
 homepage: "https://complianz.io"
 documentation: "https://complianz.io/consent-mode-for-7-0/"
 versions: 
+
 # Latest version
+  - sha: 1a215a1e1d4e604a9fc6b6d0bbe5c514aab0a5ad
+    changeNotes: Default by Default
+    
+# Previous versions
   - sha: 7a706ccb2c9684feb2519d0a5421ddef601a0400
     changeNotes: Delay for Default Consent State
-# Previous version
+
   - sha: df4234a8488b4fac114cbd063455f29700cfce74
     changeNotes: Consent Mode V2
+
 # Initial version
   - sha: 27386931571b0d0688b287f13199eed5ca6e94e9
     changeNotes: Initial Version
