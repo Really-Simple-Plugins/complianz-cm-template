@@ -17,10 +17,15 @@ documentation: "https://complianz.io/consent-mode-for-7-0/"
 versions: 
 
 # Latest version
+
+   - sha: a6882c8d08454d2ce2e3d0387e138d5bc4b1468b
+     changeNotes: url_passthrough not camelCase   
+ 
+# Previous versions
+
   - sha: 1a215a1e1d4e604a9fc6b6d0bbe5c514aab0a5ad
     changeNotes: Default by Default
-    
-# Previous versions
+
   - sha: 7a706ccb2c9684feb2519d0a5421ddef601a0400
     changeNotes: Delay for Default Consent State
 
