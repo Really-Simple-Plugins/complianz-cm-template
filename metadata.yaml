@@ -33,5 +33,6 @@ versions:
     changeNotes: Consent Mode V2
 
 # Initial version
+
   - sha: 27386931571b0d0688b287f13199eed5ca6e94e9
     changeNotes: Initial Version
