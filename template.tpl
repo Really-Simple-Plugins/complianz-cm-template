@@ -115,7 +115,7 @@ ___TEMPLATE_PARAMETERS___
       },
       {
         "type": "CHECKBOX",
-        "name": "urlPassthrough",
+        "name": "url_passthrough",
         "checkboxText": "Enable URL passthrough",
         "simpleValueType": true,
         "help": ""
