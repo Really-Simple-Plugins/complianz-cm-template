@@ -18,10 +18,13 @@ versions:
 
 # Latest version
 
-  - sha: a6893af49258a338654d235a2414de9a7f9c8226
-    changeNotes: update due to missing template   
+  - sha: 78d28ac5ebebfa5aa6c3626a06516b012dd1f9cb
+    changeNotes: YAML update   
 
 # Previous versions
+
+  - sha: a6893af49258a338654d235a2414de9a7f9c8226
+    changeNotes: update due to missing template
 
   - sha: a6882c8d08454d2ce2e3d0387e138d5bc4b1468b
     changeNotes: url_passthrough not camelCase
