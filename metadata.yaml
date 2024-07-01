@@ -18,13 +18,13 @@ versions:
 
 # Latest version
 
-   - sha: a6893af49258a338654d235a2414de9a7f9c8226
-     changeNotes: update due to missing template   
- 
+  - sha: a6893af49258a338654d235a2414de9a7f9c8226
+    changeNotes: update due to missing template   
+
 # Previous versions
 
   - sha: a6882c8d08454d2ce2e3d0387e138d5bc4b1468b
-     changeNotes: url_passthrough not camelCase
+    changeNotes: url_passthrough not camelCase
 
   - sha: 1a215a1e1d4e604a9fc6b6d0bbe5c514aab0a5ad
     changeNotes: Default by Default
